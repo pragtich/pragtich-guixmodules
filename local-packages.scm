@@ -14,21 +14,29 @@
 
 (define-module (local-packages)
   #:use-module (guix download)
+  #:use-module (guix utils)
   #:use-module (guix packages)
-  #:use-module (gnu packages syncthing))
+  #:use-module (gnu packages syncthing)
+  #:use-module (gnu packages golang))
   
-(define syncthing2
+(define-public syncthing2
   (package
    (inherit syncthing)
-   (name "syncthing2")
+   (name "syncthing2-pragtich")
    (version "2.0.13-pragtich")
    (source
     (origin
      (method url-fetch)
-     (uri "https://github.com/syncthing/syncthing/releases/download/v2.0.13/syncthing-source-v2.0.13.tar.gz"))
+     (uri "https://github.com/syncthing/syncthing/releases/download/v2.0.13/syncthing-source-v2.0.13.tar.gz")
     (sha256
      (base32
-      "fd7c93e01a6d61faa84adda8b22479dd7fd106144fbbb2eb15d773707d8a382e")))))
-    
+      "0biqi9yp0wyp2pmv5fsg2h3d2zyxg4jb5a6x9alglqbd3bh96z7x"))))
+   (arguments
+    (substitute-keyword-arguments (package-arguments syncthing)
+				  ((#:go _ go) go-1.25))
+    )
+   ))
+
+syncthing2
      
 
